@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAY 14 JS</title>
+</head>
+<body>
+    <!-- Promises
+    Promise Chaining 
+    Async Await keywords -->
+
+    <h1>Callback & Callback hell</h1>
+
+    <h2>Callback Function: The functions which accepts another function as an argument
+        and which will be executed later.</h2>
+
+        <pre>function dohomework(callback) {
+            callback;
+            console.log("do homework");
+        }
+        
+        function copyhomework() {
+            console.log("copy homework")
+        }
+        
+        dohomework(copyhomework());
+        
+        setTimeout(() => {
+            console.log("HI")
+        }, 4000);
+        
+        setTimeout(() => {
+            console.log("Hello")
+        }, 2000);
+    </pre>
+
+    <h3>
+        Callback Hell: It is an triangle like structure where we can handle asyncgronous operations
+        and having multiple callback leads to hard to debug to developers adn it will be problem to our
+        js engine compiler also
+    </h3>
+
+    <pre>
+        function call() {
+            setTimeout(() => {
+                console.log(1)
+                setTimeout(() => {
+                    console.log(2)
+                    setTimeout(() => {
+                        console.log(3)
+                        setTimeout(() => {
+                            console.log(4)
+                            setTimeout(() => {
+                                console.log(5)
+                            }, 4000);
+                        }, 3000);
+                    }, 2000);
+                }, 1000);
+        
+        
+        
+            }, 5000);
+        
+        
+        }
+        
+        call()
+    </pre>
+
+    <h2>Promises</h2>
+
+    <h3>
+        Promises: These are used to handle ansynchronous operations in js. They are easy to manage when dealing with multiple async operations where in callback hell can be created
+        where it will leads to unmanagable code. Promises is an constructor function which will accept two parameters one is resolve and another is reject
+    </h3>
+
+    <pre>
+        const promise = new Promise(function (resolve, reject) {
+            const x = "Goa";
+            const y = "Goa";
+            if (x == y) {
+                resolve();
+        
+            }
+            else {
+                reject();
+            }
+        
+        })
+        
+        promise.then(function () {
+            console.log("You are going to Goa");
+        })
+            .catch(function () {
+                console.log("You are not going to Goa");
+            })
+    </pre>
+
+    <h4>
+        Resolve will always be stored in then
+        Reject is always going to store in cache
+    </h4>
+
+    <pre>
+        function printNum(num) {
+            return new Promise((resolve, reject) => {
+                if (num % 2 == 0) {
+                    resolve("Condition is satisfied");
+                }
+                else {
+                    reject("Condition not satisfied");
+                }
+            })
+        }
+        printNum(23).then((response) => {
+            console.log(response);
+        })
+            .catch((error) => {
+                console.log(error);
+            })
+    </pre>
+
+
+
+    <pre>
+        function printNum(time, num) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    console.log(num)
+                    resolve();
+                }, time);
+                
+            })
+        }
+        printNum(5000, 1)
+             .then(() => printNum(2000, 2))
+             .then(() => printNum(6000, 4))
+             .then(() => printNum(4000, 6))
+             .then(() => printNum(3000, 8))
+    </pre>
+
+    <h3>Async and await is used to ignore promise chaining</h3>
+
+    <pre>
+        function printNum(time, num) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    console.log(num)
+                    resolve();
+                }, time);
+                
+            })
+        }
+        async function print() {
+
+            await printNum(4000,1);
+            await printNum(2000,2);
+            await printNum(4000,3);
+            await printNum(6000,4);
+            
+            
+        }
+    </pre>
+
+
+
+
+    <script src="./index.js"></script>
+</body>
+</html>
